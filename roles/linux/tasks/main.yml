@@ -1,1 +1,8 @@
+# - name: "Include de Ansible-Vault file."                                         Kijk of ik dit ook nodig heb als windows
+#   include_vars:
+#     file: ../../../group_vars/WindowsServer/vault.yml
+#   no_log: true
 
+- name: " Include yml met basic tasks"
+  ansible.builtin.include_tasks:
+    file: ../../../include/linux/start.yml
