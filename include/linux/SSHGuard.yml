@@ -1,0 +1,4 @@
+      # SSHguard 
+- include: sshhardening.yml
+  tags:
+  - sshguard
