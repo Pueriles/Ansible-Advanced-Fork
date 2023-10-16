@@ -9,6 +9,9 @@ collections:
   - name: microsoft.ad
     version: "1.3.0"
     source: https://galaxy.ansible.com
+  - name: ansible.posix
+    version: "1.5.4"
+    source: https://galaxy.ansible.com
 
 roles:
   - name: geerlingguy/ansible-role-ntp
