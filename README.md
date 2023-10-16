@@ -12,7 +12,8 @@ Dit zorgt ervoor dat de volgende collections/roles worden geinstalleerd: <br>
 Collections:
 - community.windows 
 - ansible.windows 
-- microsoft.ad 
+- microsoft.ad
+- ansible.posix
 
 Roles:
 - geerlingguy/ansible-role-ntp <br>
