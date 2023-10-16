@@ -6,3 +6,7 @@
 - name: " Include yml met basic tasks"
   ansible.builtin.include_tasks:
     file: ../../../include/linux/start.yml
+
+- name: "Adding SSHGuard"
+  ansible.builtin.include_tasks:
+    file: ../../../include/linux/SSHGuard.yml
