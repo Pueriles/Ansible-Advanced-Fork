@@ -1,16 +1,23 @@
 # Tijdens het zoeken naar SSH security kwam ik uit op (https://www.sshguard.net/faq.html) SSHGuard. Ik ben van plan dit te
 # gebruiken voor SSH System Hardening. Zie link naar FAQ.
 
-- name: Install sshguard package
-  ansible.builtin.package:
-    name: sshguard
-    state: present
-  tags:
-    - sshguard
+# https://github.com/nephosolutions/ansible-role-sshguard/blob/master/defaults/main.yaml
+
+- name: Pak SSHGuard tar.gz
+  ansible.builtin.get_url:
+    url: https://sourceforge.net/projects/sshguard/files/sshguard/2.4.2/sshguard-2.4.2.tar.gz/download
+    dest: /etc/
+
+- name: Extract SSHGuard into /etc/
+  ansible.builtin.unarchive:
+    src: /etc/sshguard-2.4.2.tar.gz
+    dest: /etc/
+    remote_src: true
 
 - name: create sshguard whitelist
   template:
-    dest: /etc/sshguard/whitelist
+    src: /templates/whitelist.conf.j2
+    dest: /etc/sshguard-2.4.2/whitelist
     owner: root
     group: root
     mode: 'u=rw,go=r'
