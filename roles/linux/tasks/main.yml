@@ -7,10 +7,10 @@
 #   ansible.builtin.include_tasks:
 #     file: include/linux/start.yml
 
-- name: "Adding SSHGuard"
-  ansible.builtin.include_tasks:
-    file: include/linux/SSHGuard.yml
-
-# - name: " Include yml met basic tasks"
+# - name: "Adding SSHGuard"
 #   ansible.builtin.include_tasks:
-#     file: include/linux/start.yml
+#     file: include/linux/SSHGuard.yml
+
+- name: " Include yml met adding users"
+  ansible.builtin.include_tasks:
+    file: include/linux/users.yml

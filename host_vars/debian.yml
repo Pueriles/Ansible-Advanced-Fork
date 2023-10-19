@@ -5,9 +5,29 @@ copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}
 sys_packages: [ 'curl', 'vim', 'git', 'ufw', 'firewalld']
 
 # sshGuard
-sshguard_default_whitelist:
-  - "127.0.0.0/8"
-  - "::1/128"
+sshguard_block_time: 120
+sshguard_detection_time: 1800
+sshguard_threshold: 30
+
+sshguard_config_items:
+  - sshguard.conf
+  - whitelist
+
+sshguard_config_path: /etc/sshguard-2.4.2
+
+sshguard_packages:
+  - sshguard
+sshguard_packages_state: present
+
+sshguard_service: sshguard
+sshguard_service_enabled: yes
+sshguard_service_state: started
+
+sshguard_whitelist:
+  - comment: IPv4 localhost
+    address: 127.0.0.0/8
+  - comment: IPv6 localhost
+    address: ::1
 
 # NTP
 __ntp_daemon: ntp

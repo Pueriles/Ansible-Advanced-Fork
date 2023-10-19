@@ -16,14 +16,14 @@
 
 - name: create sshguard whitelist
   template:
-    src: /templates/whitelist.conf.j2
+    src: templates/whitelist.conf.j2
     dest: /etc/sshguard-2.4.2/whitelist
     owner: root
     group: root
     mode: 'u=rw,go=r'
     backup: yes
   notify:
-    - restart sshguard server als het niet zelf doet in 10s
+    - restart sshguard server
 
 - name: restart sshguard server
   service:
