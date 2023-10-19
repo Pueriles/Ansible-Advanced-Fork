@@ -17,3 +17,6 @@ roles:
   - name: geerlingguy/ansible-role-ntp
     src: https://github.com/geerlingguy/ansible-role-ntp
     version: master
+
+  - src: geerlingguy.repo-epel
+    version: 1.2.4
