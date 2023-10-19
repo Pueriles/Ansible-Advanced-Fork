@@ -4,6 +4,14 @@ hostname: debian
 copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
 sys_packages: [ 'curl', 'vim', 'git', 'ufw', 'firewalld']
 
+# user.yml
+users:
+  - username: sebas
+  - username: michel
+  - username: andy
+  - username: maid
+  - username: joshua
+
 # sshGuard
 sshguard_block_time: 120
 sshguard_detection_time: 1800

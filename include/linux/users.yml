@@ -1,76 +1,15 @@
 # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
 
-- name: Add the user 'sebas' with a specific uid and a primary group of 'root'
-  ansible.builtin.user:
-    name: sebas
+- name: Create multiple users
+  user:
+    name: "{{ item.username }}"
     password: Welkom01!
-    comment: Sebastiaan
-    uid: 1040
-    group: root
+  with_items: "{{ users }}"
 
-- name: Add the user 'michel' with a specific uid and a primary group of 'root'
+- name: Create a 2048-bit SSH key for multiple users in ~{user}/.ssh/id_rsa
   ansible.builtin.user:
-    name: michel
-    password: Welkom01!
-    comment: Michel
-    uid: 1050
-    group: root
-
-- name: Add the user 'Andy' with a specific uid and a primary group of 'root'
-  ansible.builtin.user:
-    name: andy
-    password: Welkom01!
-    comment: Andy
-    uid: 1060
-    group: root
-
-- name: Add the user 'Maid' with a specific uid and a primary group of 'root'
-  ansible.builtin.user:
-    name: maid
-    password: Welkom01!
-    comment: Maid
-    uid: 1070
-    group: root
-
-- name: Add the user 'joshua' with a specific uid and a primary group of 'root'
-  ansible.builtin.user:
-    name: joshua
-    password: Welkom01!
-    comment: Joshua
-    uid: 1080
-    group: root
-
-- name: Create a 2048-bit SSH key for user sebas in ~sebas/.ssh/id_rsa
-  ansible.builtin.user:
-    name: sebas
+    name: "{{ item.username }}"
     generate_ssh_key: yes
     ssh_key_bits: 2048
     ssh_key_file: .ssh/id_rsa
-
-- name: Create a 2048-bit SSH key for user michel in ~michel/.ssh/id_rsa
-  ansible.builtin.user:
-    name: michel
-    generate_ssh_key: yes
-    ssh_key_bits: 2048
-    ssh_key_file: .ssh/id_rsa
-
-- name: Create a 2048-bit SSH key for user andy in ~andy/.ssh/id_rsa
-  ansible.builtin.user:
-    name: andy
-    generate_ssh_key: yes
-    ssh_key_bits: 2048
-    ssh_key_file: .ssh/id_rsa
-
-- name: Create a 2048-bit SSH key for user maid in ~maid/.ssh/id_rsa
-  ansible.builtin.user:
-    name: maid
-    generate_ssh_key: yes
-    ssh_key_bits: 2048
-    ssh_key_file: .ssh/id_rsa
-
-- name: Create a 2048-bit SSH key for user joshua in ~joshua/.ssh/id_rsa
-  ansible.builtin.user:
-    name: joshua
-    generate_ssh_key: yes
-    ssh_key_bits: 2048
-    ssh_key_file: .ssh/id_rsa
+  with_items: "{{ users }}"
