@@ -7,10 +7,15 @@ sys_packages: [ 'curl', 'vim', 'git', 'ufw', 'firewalld']
 # user.yml
 users:
   - username: sebas
+    password: Welkom01!
   - username: michel
+    password: Welkom01!
   - username: andy
+    password: Welkom01!
   - username: maid
+    password: Welkom01!
   - username: joshua
+    password: Welkom01!
 
 # sshGuard
 sshguard_block_time: 120

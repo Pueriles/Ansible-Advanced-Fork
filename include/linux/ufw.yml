@@ -1,0 +1,17 @@
+- name: Install UFW firewall
+  apt:
+    name: ufw
+    update_cache: yes
+    state: latest
+  become: yes
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+  become: yes
+
+- name: Allow SSH (port 22) through UFW
+  community.general.ufw:
+    rule: allow
+    port: 22
+  become: yes
