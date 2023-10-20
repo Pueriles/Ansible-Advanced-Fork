@@ -2,7 +2,7 @@
 create_user: user
 hostname: debian
 copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-sys_packages: [ 'curl', 'vim', 'git', 'ufw', 'firewalld']
+sys_packages: [ 'curl', 'vim', 'git', 'ufw', 'firewalld', 'ncdu']
 
 # user.yml
 users:
@@ -26,12 +26,12 @@ sshguard_config_items:
   - sshguard.conf
   - whitelist
 
+jinja:
+  - sshguard.conf
+  - whitelist
+
+
 sshguard_config_path: /etc/sshguard-2.4.2
-
-sshguard_packages:
-  - sshguard
-sshguard_packages_state: present
-
 sshguard_service: sshguard
 sshguard_service_enabled: yes
 sshguard_service_state: started
@@ -39,8 +39,6 @@ sshguard_service_state: started
 sshguard_whitelist:
   - comment: IPv4 localhost
     address: 127.0.0.0/8
-  - comment: IPv6 localhost
-    address: ::1
 
 # NTP
 __ntp_daemon: ntp

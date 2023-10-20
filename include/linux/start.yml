@@ -20,9 +20,5 @@
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: '/usr/sbin/visudo -cf %s'
 
-# Install Packages
-- name: Update apt
-  apt: update_cache=yes
-
 - name: Install required system packages
   apt: name={{ sys_packages }} state=latest

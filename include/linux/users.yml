@@ -1,6 +1,7 @@
 # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
 
 - name: Create multiple users with custom home directories
+  present: yes
   user:
     name: "{{ item.username }}" # Hier wordt de gebruikersnaam ingesteld
     password: "{{ item.password | password_hash('sha512') }}" # Deze parameter zorgt ervoor dat het wachtwoord wordt gehashed

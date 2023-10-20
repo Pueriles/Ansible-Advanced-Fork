@@ -14,18 +14,25 @@
     dest: /etc/
     remote_src: true
 
-- name: create sshguard whitelist
-  template:
-    src: templates/whitelist.conf.j2
-    dest: /etc/sshguard-2.4.2/whitelist
-    owner: root
-    group: root
-    mode: 'u=rw,go=r'
-    backup: yes
-  notify:
-    - restart sshguard server
+# ./configure ?? 
 
-- name: restart sshguard server
+
+- name: Configure sshguard and whitelist from templates
+  template:
+    src: "templates/{{ item }}.j2" # waar staat de file
+    dest: "{{ sshguard_config_path }}/{{ item }}" # waar staat de file 
+    owner: root # wie de eigenenaar is
+    group: root # welke groep
+    mode: '0644' # welke rechten
+    remote_src: true # kijkt op het remote is
+  with_items: 
+    - sshguard.conf
+    - whitelist
+  notify: restart sshguard service
+
+
+- name: restart sshguard service
   service:
-    name: sshguard
+    name: "{{ sshguard_service }}"
     state: restarted
+
