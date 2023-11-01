@@ -1,38 +1,70 @@
-# Tijdens het zoeken naar SSH security kwam ik uit op (https://www.sshguard.net/faq.html) SSHGuard. Ik ben van plan dit te
-# gebruiken voor SSH System Hardening. Zie link naar FAQ.
+# - name: Pak SSHGuard tar.gz
+#   ansible.builtin.get_url:
+#     url: https://sourceforge.net/projects/sshguard/files/sshguard/2.4.2/sshguard-2.4.2.tar.gz/download
+#     dest: /etc/
+#   register: download_result
 
-# https://github.com/nephosolutions/ansible-role-sshguard/blob/master/defaults/main.yaml
+# - name: Extract SSHGuard into /etc/
+#   ansible.builtin.unarchive:
+#     src: /etc/sshguard-2.4.2.tar.gz
+#     dest: /etc/
+#     remote_src: true
+#   when: download_result.changed
 
-- name: Pak SSHGuard tar.gz
-  ansible.builtin.get_url:
-    url: https://sourceforge.net/projects/sshguard/files/sshguard/2.4.2/sshguard-2.4.2.tar.gz/download
-    dest: /etc/
+# - name: Update package list
+#   apt:
+#     update_cache: yes
+#   when: ansible_os_family == 'Debian'
 
-- name: Extract SSHGuard into /etc/
-  ansible.builtin.unarchive:
-    src: /etc/sshguard-2.4.2.tar.gz
-    dest: /etc/
-    remote_src: true
+# - name: Install build-essential
+#   apt:
+#     name: build-essential
+#     state: present
+#   when: ansible_os_family == 'Debian'
 
-# ./configure ?? 
+# - name: Check if build-essential is installed
+#   command: dpkg -l build-essential
+#   register: build_essential_installed
+#   changed_when: false
+#   ignore_errors: yes
 
+- name: Configure and compile SSHGuard
+  command: ./configure && make && make install
+  args:
+    chdir: /etc/sshguard-2.4.2
+  # when: download_result.changed
 
+# SSHGuard failed sshguard niet in /usr/local/sbin
 - name: Configure sshguard and whitelist from templates
   template:
-    src: "templates/{{ item }}.j2" # waar staat de file
-    dest: "{{ sshguard_config_path }}/{{ item }}" # waar staat de file 
-    owner: root # wie de eigenenaar is
-    group: root # welke groep
-    mode: '0644' # welke rechten
-    remote_src: true # kijkt op het remote is
-  with_items: 
-    - sshguard.conf
-    - whitelist
-  notify: restart sshguard service
+    src: "templates/{{ item }}"
+    dest: "{{ sshguard_config_path }}/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items: "{{ sshguard_config_items }}"
+  # when: download_result.changed  # Only configure if SSHGuard was downloaded and extracted
 
 
-- name: restart sshguard service
-  service:
-    name: "{{ sshguard_service }}"
+- name: Copy SSHGuard service file
+  ansible.builtin.copy:
+    src: "/etc/sshguard-2.4.2/examples/sshguard.service"
+    dest: "/etc/systemd/system/sshguard.service"
+    owner: root
+    group: root
+    mode: '0644'
+    remote_src: yes
+  become: yes
+#      when: download_result.changed
+
+
+- name: Restart SSHGuard service
+  systemd:
+    name: sshguard
     state: restarted
+    enabled: yes
+  become: yes
+# when: download_result.changed
+  become: yes
+
 

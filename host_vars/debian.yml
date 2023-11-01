@@ -23,8 +23,8 @@ sshguard_detection_time: 1800
 sshguard_threshold: 30
 
 sshguard_config_items:
-  - sshguard.conf
-  - whitelist
+  - sshguard.conf.j2
+  - whitelist.j2
 
 jinja:
   - sshguard.conf
