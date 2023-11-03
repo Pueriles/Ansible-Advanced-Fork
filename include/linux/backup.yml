@@ -1,9 +1,0 @@
-- name: Create a backup directory
-  file:
-    path: /etc/backup
-    state: directory
-  delegate_to: localhost
-
-- name: Perform a backup using rsync
-  command: rsync -av --delete / /etc/backup/
-  delegate_to: localhost

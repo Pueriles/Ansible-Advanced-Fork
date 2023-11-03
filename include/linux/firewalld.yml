@@ -1,0 +1,125 @@
+- name: Install firewalld
+  apt:
+    name: firewalld
+    state: present
+  become: yes
+
+- name: Ensure firewalld is started and enabled
+  systemd:
+    name: firewalld
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Add service to the public zone
+  firewalld:
+    service: https
+    zone: public
+    state: enabled
+    permanent: yes
+  become: yes
+
+- name: Permit traffic in default zone for HTTPS service
+  shell: firewall-cmd --zone=public --add-service=https --permanent
+  become: yes
+
+
+- name: Permit OSPF traffic
+  shell: firewall-cmd --add-protocol=ospf --permanent
+  become: yes
+
+- name: Do not permit traffic in default zone on port 8081/tcp
+  shell: firewall-cmd --remove-port=8081/tcp --permanent
+  become: yes
+
+- name: Permit SNMP traffic
+  shell: firewall-cmd --add-port=161-162/udp --permanent
+  become: yes
+
+- name: Permit HTTP service in the 'dmz' zone
+  shell: firewall-cmd --zone=dmz --add-service=http --permanent
+  become: yes
+
+- name: Permit FTP traffic with audit rule
+  shell: firewall-cmd --add-rich-rule='rule service name="ftp" audit limit value="1/m" accept' --permanent
+  become: yes
+
+- name: Permit traffic from specific source to the 'internal' zone
+  shell: firewall-cmd --zone=internal --add-source=192.0.2.0/24 --permanent
+  become: yes
+
+- name: Enable firewall on the 'eth2' interface in the 'trusted' zone
+  shell: firewall-cmd --zone=trusted --add-interface=eth2 --permanent
+  become: yes
+
+- name: Enable masquerading in the 'dmz' zone
+  shell: firewall-cmd --zone=dmz --add-masquerade --permanent
+  become: yes
+
+- name: Create a custom zone
+  shell: firewall-cmd --new-zone=custom --permanent
+  become: yes
+  when: "'custom' not in zones.stdout"
+
+- name: Enable the 'drop' zone with inversion
+  shell: firewall-cmd --zone=drop --set-target=DROP --permanent
+  become: yes
+
+- name: Enable icmp-block-inversion in the 'drop' zone
+  shell: firewall-cmd --zone=drop --add-icmp-block=echo-request --permanent
+  become: yes
+
+- name: Set the 'internal' zone to ACCEPT
+  shell: firewall-cmd --zone=internal --set-target=ACCEPT --permanent
+  become: yes
+
+- name: Redirect port 443 to 8443 with Rich Rule
+  shell: firewall-cmd --zone=public --add-rich-rule='rule family=ipv4 forward-port port=443 protocol=tcp to-port=8443' --permanent
+  become: yes
+
+- name: Reload firewalld to apply changes
+  shell: firewall-cmd --reload
+  become: yes
+
+- name: Start and enable firewalld service
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: Allow HTTP, HTTPS, and SSH services
+  firewalld:
+    service: "{{ item }}"
+    state: enabled
+    permanent: yes
+  with_items:
+    - http
+    - https
+    - ssh
+
+- name: Allow ICMP (ping) traffic
+  firewalld:
+    zone: public
+    source: 0.0.0.0/0
+    protocol: icmp
+    state: enabled
+    permanent: yes
+
+- name: Allow DHCP and DNS traffic
+  firewalld:
+    service: "{{ item }}"
+    state: enabled
+    permanent: yes
+  with_items:
+    - dhcp
+    - dns
+
+- name: Drop all other incoming traffic
+  firewalld:
+    zone: public
+    source: 0.0.0.0/0
+    state: disabled
+    permanent: yes
+
+- name: Reload firewalld to apply changes
+  command: firewall-cmd --reload

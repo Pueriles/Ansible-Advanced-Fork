@@ -1,0 +1,14 @@
+- name: Create a backup directory
+  file:
+    path: /etc/backup
+    state: directory
+  # delegate_to: localhost
+
+- name: Install rsync
+  package:
+    name: rsync
+    state: present
+
+- name: Perform a backup using rsync
+  command: rsync -avhz /etc sebastiaan@192.168.199.152:/home/sebastiaan/Desktop/backoup
+  # delegate_to: localhost

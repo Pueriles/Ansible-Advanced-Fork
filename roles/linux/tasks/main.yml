@@ -11,13 +11,13 @@
 #   ansible.builtin.include_tasks:
 #     file: include/linux/users.yml
 
-# - name: " Include yml met UFW install / config"
-#   ansible.builtin.include_tasks:
-#     file: include/linux/ufw.yml
-
-- name: "Adding SSHGuard"
+- name: " Include yml met Firewalld install / config"
   ansible.builtin.include_tasks:
-    file: include/linux/SSHGuard.yml
+    file: include/linux/firewalld.yml
+
+# - name: "Adding SSHGuard"
+#   ansible.builtin.include_tasks:
+#     file: include/linux/SSHGuard.yml  <--- configure sshguard failed
 
 # - name: " Include yml met Backup "
 #   ansible.builtin.include_tasks:

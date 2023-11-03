@@ -5,6 +5,7 @@
   - { role: docker, tags: [ 'docker']}
   - { role: ntp, tags: [ 'ntp']}
   - { role: linux, tags: [ 'linux']}
+  - { role: linux backup, tags: [ 'linux-backup']}
 
 - hosts: routers 
   gather_facts: true
