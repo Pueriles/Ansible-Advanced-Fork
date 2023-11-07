@@ -1,3 +1,11 @@
+- name: Get root user info
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ item.username}}" 
+- ansible.builtin.debug:
+    var: ansible_facts.getent_passwd
+
+- name: Create users 
   present: yes
   user:
     name: "{{ item.username }}"
@@ -5,7 +13,7 @@
     createhome: yes # Deze parameter zorgt ervoor dat een home directory wordt aangemaakt
     shell: /bin/bash 
   with_items: "{{ users }}" # Hier wordt de variabele users gebruikt
-  when: not (ansible_facts.ansible_users | default([]) | map(attribute='name') | list | intersect([item.username]) | list)
+  # when:
 
 - name: Add sudoers users to the wheel group
   user:

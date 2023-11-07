@@ -56,10 +56,9 @@
   shell: firewall-cmd --zone=dmz --add-masquerade --permanent
   become: yes
 
-- name: Create a custom zone
-  shell: firewall-cmd --new-zone=custom --permanent
-  become: yes
-  when: "'custom' not in zones.stdout"
+# - name: Create a custom zone
+#   shell: firewall-cmd --new-zone=customzone --permanent
+#   become: yes
 
 - name: Enable the 'drop' zone with inversion
   shell: firewall-cmd --zone=drop --set-target=DROP --permanent
@@ -96,14 +95,15 @@
     - http
     - https
     - ssh
+    - imcp
 
-- name: Allow ICMP (ping) traffic
-  firewalld:
-    zone: public
-    source: 0.0.0.0/0
-    protocol: icmp
-    state: enabled
-    permanent: yes
+# - name: Allow ICMP (ping) traffic
+#   firewalld:
+#     zone: public
+#     source: 0.0.0.0/0
+#     protocol: icmp
+#     state: enabled
+#     pqermanent: yes
 
 - name: Allow DHCP and DNS traffic
   firewalld:
