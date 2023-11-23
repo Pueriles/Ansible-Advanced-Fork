@@ -1,8 +1,8 @@
-##### {{ ansible_managed }} sshguard configuration #####
+##### sshguard configuration #####
 
 #### REQUIRED CONFIGURATION ####
 # Full path to backend executable (required, no default)
-BACKEND="/usr/lib/x86_64-linux-gnu/sshg-fw-nft-sets"
+BACKEND="/usr/sbin/nft"
 
 # Shell command that provides logs on standard output. (optional, no default)
 LOGREADER="LANG=C /bin/journalctl -afb -p info -n1 -o cat SYSLOG_FACILITY=4 SYSLOG_FACILITY=10"

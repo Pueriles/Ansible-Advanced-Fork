@@ -35,13 +35,14 @@
 
 - name: Build SSHGuard from source
   shell: |
-    cd /tmp/sshguard
+    cd /etc/sshguard-2.4.2
     ./autogen.sh
     ./configure
     make
     make install
   args:
    executable: /bin/bash
+   chdir: /etc/sshguard-2.4.2
 
 - name: Start SSHGuard service
   service:
