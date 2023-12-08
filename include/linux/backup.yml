@@ -99,6 +99,7 @@
   when:
     - script_file.stat.exists == true
     - inventory_hostname == 'server2'
+    
 - name: Perform a backup using rsync
   command: rsync -av --delete / /etc/backup/
   delegate_to: localhost
