@@ -19,6 +19,10 @@ users:
   - username: joshua
     password: Welkom01!
 
+rsync_script_path: "/etc/scripts"
+rsync_script_items:
+  - rsync
+
 # sshGuard
 sshguard_block_time: 120
 sshguard_detection_time: 1800
@@ -29,7 +33,7 @@ sshguard_config_items:
   - whitelist
 
 
-sshguard_config_path: /etc/sshguard-2.4.2
+sshguard_config_path: "/etc/sshguard-2.4.2"
 sshguard_service: sshguard
 sshguard_service_enabled: yes
 sshguard_service_state: started

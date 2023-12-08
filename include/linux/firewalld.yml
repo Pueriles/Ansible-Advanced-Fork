@@ -86,16 +86,16 @@
     state: started
     enabled: yes
 
-- name: Allow HTTP, HTTPS, and SSH services
-  firewalld:
-    service: "{{ item }}"
-    state: enabled
-    permanent: yes
-  with_items:
-    - http
-    - https
-    - ssh
-    - imcp
+# - name: Allow HTTP, HTTPS, and SSH services
+#   firewalld:
+#     service: "{{ item }}"
+#     state: enabled
+#     permanent: yes
+#   with_items:
+#     - http
+#     - https
+#     - ssh
+#     - imcp
 
 # - name: Allow ICMP (ping) traffic
 #   firewalld:

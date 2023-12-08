@@ -1,3 +1,45 @@
 # https://github.com/gantsign/ansible_role_backup? Rsync
 # Maid & Joshua hebben een Rsync script die (half) werkt
 # SLA = 1 december
+
+# - name: Create a backup directory
+#   file:
+#     path: /etc/backup
+#     state: directory
+#   delegate_to: localhost
+#   become: yes
+#   become_user: root
+#   become_password: "Welkom01!"
+
+# - name: Create a backup directory
+#   file:
+#     path: /etc/scripts
+#     state: directory
+#   delegate_to: localhost
+#   become: yes
+#   become_user: root
+#   become_password: "Welkom01!"
+
+# - name: rsync installed
+#   ansible.builtin.package:
+#     name: rsync
+#     state: present
+
+# - name: Copy file with owner and permissions
+#   template:
+#     src: "templates/{{ item }}.j2"
+#     dest: "{{ rsync_script_path }}/{{ item }}.sh"
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   with_items: "{{ rsync_script_items }}"
+#   # when: download_result.changed  # Only configure if SSHGuard was downloaded and extracted
+
+# - name: This command will change the working directory to somedir/
+#   ansible.builtin.shell:
+#     cmd: "sh rsync.sh"
+#     chdir: "{{ rsync_script_path }}"
+
+# - name: Perform a backup using rsync
+#   command: rsync -av --delete / /etc/backup/
+#   delegate_to: localhost

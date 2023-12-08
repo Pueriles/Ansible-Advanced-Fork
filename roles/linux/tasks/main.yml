@@ -3,21 +3,17 @@
 #     file: group_vars/WindowsServer/vault.yml
 #   no_log: true
 
-# - name: " Include yml met basic tasks"
-#   ansible.builtin.include_tasks:
-#     file: include/linux/start.yml
-
-# - name: " Include yml met adding users"
-#   ansible.builtin.include_tasks:
-#     file: include/linux/users.yml
-
-# - name: " Include yml met Firewalld install / config"
-#   ansible.builtin.include_tasks:
-#     file: include/linux/firewalld.yml
-
-- name: "Adding SSHGuard"
+- name: " Include yml met basic tasks"
   ansible.builtin.include_tasks:
-    file: include/linux/SSHGuard.yml # <--- configure sshguard failed
+    file: include/linux/start.yml
+
+- name: " Include yml met adding users"
+  ansible.builtin.include_tasks:
+    file: include/linux/users.yml
+
+- name: " Include yml met Firewalld install / config"
+  ansible.builtin.include_tasks:
+    file: include/linux/firewalld.yml
 
 # - name: " Include yml met Backup "
 #   ansible.builtin.include_tasks:
