@@ -1,48 +1,26 @@
 ---
-create_user: user
 hostname: debian
 copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-sys_packages: [ 'curl', 'vim', 'git', 'ufw', 'firewalld', 'ncdu', 'python3-firewall']
+sys_packages: [ 'curl', 'vim', 'git', 'firewalld', 'ncdu', 'python3-firewall']
 
 
 
 # user.yml
 users:
   - username: sebas
-    password: Welkom01!
+    password: "{{ ansible_password }}"
   - username: michel
-    password: Welkom01!
+    password: "{{ ansible_password }}"
   - username: andy
-    password: Welkom01!
+    password: "{{ ansible_password }}"
   - username: maid
-    password: Welkom01!
+    password: "{{ ansible_password }}"
   - username: joshua
-    password: Welkom01!
+    password: "{{ ansible_password }}"
 
-rsync_script_path: "/etc/scripts"
-rsync_script_items:
-  - rsync
-
-# sshGuard
-sshguard_block_time: 120
-sshguard_detection_time: 1800
-sshguard_threshold: 30
-
-sshguard_config_items:
-  - sshguard.conf
-  - whitelist
-
-
-sshguard_config_path: "/etc/sshguard-2.4.2"
-sshguard_service: sshguard
-sshguard_service_enabled: yes
-sshguard_service_state: started
-
-sshguard_whitelist:
-  - comment: IPv4 localhost
-    address: 127.0.0.0/8
-  - comment: IPv6 localhost
-    address: ::1
+# rsync_script_path: "/etc/scripts"
+# rsync_script_items:
+#   - rsync
 
 # NTP
 __ntp_daemon: ntp
