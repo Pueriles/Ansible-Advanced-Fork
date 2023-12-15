@@ -1,3 +1,35 @@
 # https://github.com/gantsign/ansible_role_backup? Rsync
 # Maid & Joshua hebben een Rsync script die (half) werkt
 # SLA = 1 december
+
+- name: Looking if Rsync is installed
+  apt:
+    name: rsync
+    state: present
+    update_cache: true
+
+- name: Create a directory for the rsync script
+  file:
+    path: /etc/scripts
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Copy rsync.sh[push] to the remote server
+  copy:
+    src: templates/rsync.j2
+    dest: /etc/scripts/rsync.sh
+    mode: 0770
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Execute rsync.sh script on the remote server
+  shell:
+    chdir: /etc/scripts/
+    cmd: ./rsync.sh
+  register: fetch_result
+
+- name: Display the script output
+  debug:
+    var: fetch_result

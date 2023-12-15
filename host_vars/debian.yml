@@ -1,26 +1,58 @@
 ---
 hostname: debian
 copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-sys_packages: [ 'curl', 'vim', 'git', 'firewalld', 'ncdu', 'python3-firewall']
+sys_packages: [ 'curl', 'vim', 'git', 'ufw', 'firewalld', 'ncdu', 'python3-firewall']
 
 
 
 # user.yml
 users:
-  - username: sebas
-    password: "{{ ansible_password }}"
-  - username: michel
-    password: "{{ ansible_password }}"
-  - username: andy
-    password: "{{ ansible_password }}"
-  - username: maid
-    password: "{{ ansible_password }}"
-  - username: joshua
-    password: "{{ ansible_password }}"
+  usernames:
+    Maid:
+      username: Maid
+      permissions: "mhrustic ALL = NOPASSWD: /usr/bin/apt-get update"
+      password: "{{ linux_password | password_hash('sha512') }}"
+    Andy:
+      username: Sebas
+      permissions: "asu ALL=(ALL) NOPASSWD:/usr/bin/systemctl status sshd"
+      password: "{{ linux_password | password_hash('sha512') }}"
+    Joshua:
+      username: Michel
+      permissions: "jedegraaf ALL = NOPASSWD: /usr/bin/apt-get upgrade"
+      password: "{{ linux_password | password_hash('sha512') }}"
+    Sebastiaan:
+      username: Andy
+      permissions: "sknol ALL=(ALL) NOPASSWD:ALL"
+      password: "{{ linux_password | password_hash('sha512') }}"
+    Michel:
+      username: Joshua
+      permissions: "mriemesrma ALL=(ALL) NOPASSWD:ALL"
+      password: "{{ linux_password | password_hash('sha512') }}"
 
-# rsync_script_path: "/etc/scripts"
-# rsync_script_items:
-#   - rsync
+rsync_script_path: "/etc/scripts"
+rsync_script_items:
+  - rsync
+
+# sshGuard
+sshguard_block_time: 120
+sshguard_detection_time: 1800
+sshguard_threshold: 30
+
+sshguard_config_items:
+  - sshguard.conf
+  - whitelist
+
+
+sshguard_config_path: "/etc/sshguard-2.4.2"
+sshguard_service: sshguard
+sshguard_service_enabled: yes
+sshguard_service_state: started
+
+sshguard_whitelist:
+  - comment: IPv4 localhost
+    address: 127.0.0.0/8
+  - comment: IPv6 localhost
+    address: ::1
 
 # NTP
 __ntp_daemon: ntp

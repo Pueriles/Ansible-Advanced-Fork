@@ -7,12 +7,12 @@
 
 - name: Create users
   user:
-    name: "{{ item.username }}"
-    password: "{{ item.password | password_hash('sha512') }}"
+    name: "{{ users.usernames[item].username }}"
+    password: "{{ linux_password | password_hash('sha512') }}"
     createhome: yes
     shell: /bin/bash
     state: present
-  with_items: "{{ users }}"
+  with_items: "{{ users.usernames.keys() }}"
 
 - name: Add sudoers users to the wheel group
   user:

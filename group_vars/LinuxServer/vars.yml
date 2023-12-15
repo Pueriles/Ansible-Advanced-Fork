@@ -1,4 +1,4 @@
-ansible_user: "user"
+ansible_user: "sebastiaan"
 ansible_password: "{{ linux_password }}"
 ansible_become_password: "{{ linux_password }}"
 ansible_ssh_pass: "{{ linux_password }}"

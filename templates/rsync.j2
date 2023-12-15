@@ -1,8 +1,8 @@
 #!/bin/bash
 
 SRC_DIR="/home/"
-DEST_DIR="sebastiaan@192.168.199.154:/home/sebastiaan/BACKUP/"
+DEST_DIR="sebastiaan@192.168.199.154:/home/sebastiaan/backoup/"
 
 RSYNC_OPTS="-ahvz --delete --progress -og"
 
-sudo -u "ansible" rsync $RSYNC_OPTS -e "ssh -i /home/ansible/.ssh/id_rsa" "$SRC_DIR" "$DEST_DIR" 2>&1 | tee /var/log/rsync.log
+sudo -u "sebastiaan" rsync $RSYNC_OPTS -e "ssh -i /home/sebastiaan/.ssh/id_rsa" "$SRC_DIR" "$DEST_DIR" 2>&1 | tee /var/log/rsync.log
