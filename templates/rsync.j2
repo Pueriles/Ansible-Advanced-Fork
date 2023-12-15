@@ -1,8 +1,12 @@
 #!/bin/bash
 
-SRC_DIR="/home/"
-DEST_DIR="sebastiaan@192.168.199.154:/home/sebastiaan/backoup/"
+SRC_DIR="/home/sebastiaan/test/"
+DEST_DIR="sebastiaan@192.168.199.152:/home/sebastiaan/Desktop/backoup/"
 
 RSYNC_OPTS="-ahvz --delete --progress -og"
 
-sudo -u "sebastiaan" rsync $RSYNC_OPTS -e "ssh -i /home/sebastiaan/.ssh/id_rsa" "$SRC_DIR" "$DEST_DIR" 2>&1 | tee /var/log/rsync.log
+# Set the SSH key path
+SSH_KEY="/home/sebastiaan/.ssh/id_rsa"
+
+# Run rsync with the specified SSH key
+sudo -u "sebastiaan" rsync $RSYNC_OPTS -e "ssh -i $SSH_KEY" "$SRC_DIR" "$DEST_DIR" 2>&1 | tee /var/log/rsync.log
