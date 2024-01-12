@@ -2,7 +2,7 @@
   gather_facts: true
   become: true
   roles:
-  - { role: linux/backup, tags: [ 'linux_backup']}
+#  - { role: linux/backup, tags: [ 'linux_backup']}
   - { role: linux/bash, tags: [ 'linux_bash']}
   - { role: containers/docker, tags: [ 'docker']}
   - { role: linux/basic, tags: [ 'basic']}
@@ -16,7 +16,7 @@
   gather_facts: true
   become: true
   roles:
-  - { role: netorking/routers, tags: [ 'routers']}
+  - { role: networking/routers, tags: [ 'routers']}
 
 - hosts: switches
   gather_facts: true
@@ -49,9 +49,9 @@
   gather_facts: true
   become: yes
   become_method: runas
-  become_user: michel
+  become_user: sebastiaan
   roles:
-  - { role: domain, tags: [ 'domain']}
-  - { role: apps, tags: [ 'apps']}
-  - { role: ai_nvidia, tags: [ 'nvidia']}
-  - { role: ai_amd, tags: [ 'amd']}
+  - { role: werkstations/domain, tags: [ 'domain']}
+  - { role: werkstations/apps, tags: [ 'apps']}
+  - { role: werkstations/ai_nvidia, tags: [ 'nvidia']}
+  - { role: werkstations/ai_amd, tags: [ 'amd']}

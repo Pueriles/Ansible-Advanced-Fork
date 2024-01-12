@@ -1,6 +1,6 @@
 - name: "Kopieer de backup terug naar de server"
   win_copy:
-    src: /home/michel/BACKUP/WS2019-Michel/C:/Backup
+    src: /home/sebastiaan/BACKUP/WinS2019/C:/Backup
     dest: C:\BACKUP\backup.zip
   when: ansible_distribution_version >= "10.0"
 
@@ -25,4 +25,4 @@
     state: absent
 
 - name: "Run de shares opnieuw"
-  ansible.builtin.import_tasks: roles/windows_shares/tasks/main.yml
+  ansible.builtin.import_tasks: roles/windows/shares/tasks/main.yml
