@@ -1,0 +1,28 @@
+- name: "Kopieer de backup terug naar de server"
+  win_copy:
+    src: /home/michel/BACKUP/WS2019-Michel/C:/Backup
+    dest: C:\BACKUP\backup.zip
+  when: ansible_distribution_version >= "10.0"
+
+- name: Extract a zip file
+  win_dsc:
+    resource_name: Archive
+    Destination: C:\Backup\
+    Path: C:\Backup\backup.zip\Backup\backup.zip
+    Ensure: Present
+    
+- name: "sync backup en de afdelingen"
+  community.windows.win_robocopy:
+    src: C:\Backup\Backup\Afdelingen
+    dest: C:\Afdelingen
+    state: present
+    recurse: yes
+    purge: yes
+
+- name: "Delete de C:/Backup" 
+  win_file:
+    path: C:\Backup
+    state: absent
+
+- name: "Run de shares opnieuw"
+  ansible.builtin.import_tasks: roles/windows_shares/tasks/main.yml

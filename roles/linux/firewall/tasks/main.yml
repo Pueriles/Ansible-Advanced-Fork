@@ -1,0 +1,44 @@
+- name: Check of Firewalld geinstalleerd is.
+  apt: 
+    name: firewalld
+    state: present
+    update_cache: yes
+
+- name: Check of Firewalld aan het runnen is.
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: Sta sommige services toe (aanpasbaar)
+  firewalld: 
+   service: "{{ item }}"
+   permanent: yes
+   state: enabled
+   immediate: yes
+  with_items: 
+  - https 
+  - http 
+  - ssh
+  register: firewall_config
+
+- name: Sta poort 873 toe voor rsync
+  firewalld:
+    port: 873/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: Check of Firewalld herstart is.
+  service:
+    name: firewalld
+    state: reloaded
+  when: firewall_config.changed
+
+- name: Registreer alle services van Firewalld
+  command: "firewall-cmd --zone=public --list-all"
+  register: firewalld_status
+
+- name:  weergave van de output op de Ansible controller
+  debug:
+    msg: " {{ firewalld_status.stdout_lines}}"

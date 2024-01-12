@@ -1,0 +1,31 @@
+# Dit playbook maakt de DHCP scope aan
+- name: Voeg de DHCP server toe aan de authorised DHCP servers in Windows 
+  ansible.windows.win_powershell: 
+    script: |
+      Add-DhcpServerInDC -DnsName {{FQDN}} -IPAddress {{ansible_host}}
+
+- name: Geef meer output
+  ansible.windows.win_powershell:
+    script: |
+      Get-DhcpServerInDC
+  register: dhcp_status
+
+- name: Laat de output zien in de Terminal
+  debug: 
+    msg: "{{dhcp_status}}"
+
+
+- name: Maak een DHCP scope
+  ansible.windows.win_powershell:
+    script: |
+      Add-DhcpServerv4Scope -Name "{{DHCP_SCOPE_NAME}}" -StartRange {{start_range}} -EndRange {{end_range}} -SubnetMask {{subnetmask}}
+
+- name: pas de DHCP scope aan
+  ansible.windows.win_powershell:
+    script: |
+      Set-DhcpServerv4OptionValue -ComputerName "{{inventory_hostname}}" -Scope_Id {{scopeid}} -DnsServer {{dnsserver}} -DnsDomain "{{dns_domain_name}}" -Router {{router}}
+
+- name: Restart de DHCP server
+  ansible.windows.win_powershell:
+    script: |
+      Restart-Service DhcpServer

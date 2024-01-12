@@ -1,0 +1,54 @@
+- name: sta inkomende DHCP toe
+  community.windows.win_firewall_rule:
+    name: "Sta inkomenende DHCP toe."
+    direction: "in"
+    localport: "67"
+    protocol: "udp"
+    action: "allow"
+    enabled: "yes"
+
+- name: Sta uitgaande DHCP toe
+  community.windows.win_firewall_rule:
+    name: "Sta uitgaande DHCP toe."
+    direction: "out"
+    localport: "68"
+    protocol: "udp"
+    action: "allow"
+    enabled: "yes"
+
+- name: Sta inkomende DNS toe
+  community.windows.win_firewall_rule:
+    name: "Sta inkomende DNS toe."
+    direction: "in"
+    localport: "53"
+    protocol: "tcp"
+    action: "allow"
+    enabled: "yes"
+
+- name: Sta inkomende SSH toe
+  community.windows.win_firewall_rule:
+    name: "Sta inkomende SSH toe."
+    direction: "in"
+    localport: "22"
+    protocol: "tcp"
+    action: "allow"
+    enabled: "yes"
+
+- name: Sta inkomende RDP toe
+  community.windows.win_firewall_rule:
+    name: "Sta inkomende RDP toe."
+    direction: "in"
+    localport: "3389"
+    protocol: "tcp"
+    action: "allow"
+    enabled: "yes"
+
+- name: Sta inkomende SMTP toe
+  community.windows.win_firewall_rule:
+    name: "Sta inkomende SMTP toe."
+    direction: "in"
+    localport: "25"
+    protocol: "tcp"
+    action: "allow"
+    enabled: "yes"
+

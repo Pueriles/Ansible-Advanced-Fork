@@ -1,0 +1,11 @@
+- name: update & upgrade alle packages
+  apt:
+    force_apt_get: true
+    upgrade: dist
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: installeer alle benodigde system packages
+  apt:
+    name: "{{ sys_packages }}"
+    state: latest 

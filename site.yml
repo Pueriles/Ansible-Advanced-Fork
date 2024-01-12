@@ -2,22 +2,27 @@
   gather_facts: true
   become: true
   roles:
-  - { role: docker, tags: [ 'docker']}
-  - { role: ntp, tags: [ 'ntp']}
-  - { role: linux, tags: [ 'linux']}
-  - { role: linux backup, tags: [ 'linux-backup']}
+  - { role: linux/backup, tags: [ 'linux_backup']}
+  - { role: linux/bash, tags: [ 'linux_bash']}
+  - { role: containers/docker, tags: [ 'docker']}
+  - { role: linux/basic, tags: [ 'basic']}
+  - { role: linux/firewall, tags: [ 'linux_firewall']}
+  - { role: linux/ntp, tags: [  'linux_ntp']}
+  - { role: linux/restore,  tags: [ 'linux_restore']}
+  - { role: linux/users, tags:  [ 'linux_users']}
+
 
 - hosts: routers 
   gather_facts: true
   become: true
   roles:
-  - { role: routers, tags: [ 'routers']}
+  - { role: netorking/routers, tags: [ 'routers']}
 
 - hosts: switches
   gather_facts: true
   become: true
   roles:
-  - { role: switches, tags: [ 'switches']}
+  - { role: networking/switches, tags: [ 'switches']}
 
 - hosts: WindowsServer
   gather_facts: true
@@ -25,13 +30,28 @@
   become_method: runas
   become_user: Administrator
   roles:
-  - { role: windows, tags: [ 'windows']}
-  - { role: windows updates, tags: [ 'updates']}
+  - { role: windows/basic, tags: [ 'basic']}
+  - { role: windows/adds, tags: [ 'adds']}
+  - { role: windows/agdlp, tags: [ 'agdlp']}
+  - { role: windows/backup, tags: [ 'backup']}
+  - { role: windows/dhcp, tags: [ 'dhcp']}
+  - { role: windows/dns,  tags: [ 'dns']}
+  - { role: windows/firewall, tags: [ 'firewall']}
+  - { role: windows/gpo,  tags: [ 'gpo']}
+  - { role: windows/ou, tags: [ 'ou']}
+  - { role: windows/restore, tags: [ 'restore']}
+  - { role: windows/shares, tags: [ 'shares']}
+  - { role: windows/ssh, tags: [ 'ssh']}
+  - { role: windows/users, tags: [ 'users']}
+  - { role: windows/updates, tags: [ 'updates']}
 
 - hosts: Werkstations
   gather_facts: true
   become: yes
   become_method: runas
-  become_user: Administrator
+  become_user: michel
   roles:
-  - { role: werkstations, tags: [ 'werkstations']}
+  - { role: domain, tags: [ 'domain']}
+  - { role: apps, tags: [ 'apps']}
+  - { role: ai_nvidia, tags: [ 'nvidia']}
+  - { role: ai_amd, tags: [ 'amd']}

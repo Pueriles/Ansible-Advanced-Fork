@@ -1,0 +1,78 @@
+- name: Kopieer the backgrounds folder
+  win_copy:
+    src: ~/Backgrounds
+    dest: C:\
+- name: Verander de rechten van de folder Backgrounds
+  ansible.windows.win_share:
+    name: "Backgrounds"
+    description: "Dit is een testshare voor Noorderpoort"
+    path: C:\Backgrounds
+    list: true
+    full: Administrators
+    change: "NOORDERPOORT\\DL_Administratie,NOORDERPOORT\\DL_SysAdmins,NOORDERPOORT\\DL_Automatisering,NOORDERPOORT\\DL_Verkoop,NOORDERPOORT\\DL_Inkoop,NOORDERPOORT\\DL_Directie,NOORDERPOORT\\DL_Rechterhand,NOORDERPOORT\\DL_Productie,NOORDERPOORT\\DL_Fabricage"
+    state: present
+
+- name: Verander de achtergrond voor de groepen
+  ansible.windows.win_powershell: 
+    script: |
+      New-GPO -Name "Background GPO - {{item.group}}"
+      New-GPLink -Name "Background GPO - {{item.group}}" -Target "OU={{item.ou}},OU=NPAfdelingen,DC={{domain}},DC={{controller}}"
+  with_items:
+    - {group: "DL_Verkoop", ou: "Verkoop"}
+    - {group: "DL_Administratie", ou: "Administratie"}
+    - {group: "DL_Automatisering", ou: "Automatisering"}
+    - {group: "DL_Productie", ou: "Productie"}
+    - {group: "DL_Directie", ou: "Directie"}
+
+- name: Verander de achtergrond voor de subgroepen
+  ansible.windows.win_powershell: 
+    script: |
+      New-GPO -Name "Background GPO - {{item.group}}"
+      New-GPLink -Name "Background GPO - {{item.group}}" -Target "OU={{item.ou}},OU={{item.parentOU}},OU=NPAfdelingen,DC={{domain}},DC={{controller}}"
+  with_items:
+    - {group: "DL_Inkoop", ou: "Inkoop", parentOU: "Verkoop"}
+    - {group: "DL_SysAdmins", ou: "SysAdmins", parentOU: "Automatisering"}
+    - {group: "DL_Fabricage", ou: "Fabricage", parentOU: "Productie"}
+    - {group: "DL_Rechterhand", ou: "Rechterhand", parentOU: "Directie"}
+
+- name: Verander de achtergrond voor Groups in OUs
+  ansible.windows.win_powershell: 
+    script: |
+      Set-GPRegistryValue -Name "Background GPO - {{item.group}}" -Key "HKEY_CURRENT_USER\Control Panel\Desktop" -ValueName "Wallpaper" -Type String -Value "\\WinS2019\Backgrounds\{{item.group}}.jpg"
+  with_items:
+    - {group: "DL_Inkoop"}
+    - {group: "DL_Verkoop"}
+    - {group: "DL_Productie"}
+    - {group: "DL_Fabricage"}
+    - {group: "DL_Automatisering"}
+    - {group: "DL_SysAdmins"}
+    - {group: "DL_Administratie"}
+    - {group: "DL_Directie"}
+    - {group: "DL_Rechterhand"}
+
+- name: foeceer GPOs voor Subgroups
+  ansible.windows.win_powershell: 
+    script: |
+      $GPOName = "Background GPO - {{item.group}}"
+      $GPO = Get-GPO -Name $GPOName
+      $GPO.GpoStatus = "AllSettingsEnabled"
+      Set-GPO -Name $GPOName -GpoStatus $GPO.GpoStatus
+  loop:
+    - { group: "DL_Inkoop", ou: "Inkoop", parentOU: "Verkoop" }
+    - { group: "DL_SysAdmins", ou: "SysAdmins", parentOU: "Automatisering" }
+    - { group: "DL_Fabricage", ou: "Fabricage", parentOU: "Productie" }
+    - { group: "DL_Rechterhand", ou: "Rechterhand", parentOU: "Directie" }
+      
+- name: Creeer GPO om de control panel uit te zetten in NPAfdelingen
+  ansible.windows.win_powershell: 
+    script: |
+      New-GPO -Name "Control Panel Disable GPO - NPAfdelingen"
+      New-GPLink -Name "Control Panel Disable GPO - NPAfdelingen" -Target "OU=NPAfdelingen,DC={{domain}},DC={{controller}}"
+
+- name: Restricties voor Control Panel in NPAfdelingen
+  ansible.windows.win_powershell: 
+    script: |
+      Set-GPRegistryValue -Name "Control Panel Disable GPO - NPAfdelingen" -Key "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -ValueName "NoControlPanel" -Type DWord -Value 1
+
+- name: gpupdate
+  win_command: gpupdate /force

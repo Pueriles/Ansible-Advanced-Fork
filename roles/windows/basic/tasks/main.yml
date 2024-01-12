@@ -1,0 +1,12 @@
+# Dit playbook installeer wat simpele rollen die je nodig hebt voor ADDS
+- name: Installeer de volgende rollen.
+  ansible.windows.win_feature:
+    name: "{{ item }}"
+    state: present
+    include_sub_features: true
+    include_management_tools: true
+  loop:
+    - AD-Domain-Services
+    - DHCP
+    - DNS
+    - WDS

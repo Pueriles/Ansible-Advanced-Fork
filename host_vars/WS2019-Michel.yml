@@ -1,0 +1,42 @@
+ansible_host: 192.168.16.199
+
+# ADDS
+dns_domain_name: "noorderpoort.intern"
+domain_netbios_name: "NOORDERPOORT"
+check_netbios_name: "NOORDERPOORT\\Michel"
+domain_admin_user: "Administrator@noorderpoort.intern"
+
+domain: "noorderpoort"
+controller: "intern"
+
+#DHCP
+
+FQDN: WS2019.noorderpoort.intern
+DHCP_SCOPE_NAME: "TestScope"
+start_range: 192.168.16.150
+end_range: 192.168.16.175
+subnetmask: 255.255.255.0
+dnsserver: "{{ansible_host}}"
+router: 192.168.16.1
+scopeid: "192.168.16.0/24"
+
+#FQDN = Fully Qualified Domain Name.
+#Scopeid = geeft aan waar de informatie vandaan gehaald moet worden, soort van NetworkID
+
+# DNS
+dynamic_update: secure
+replication: Forest
+network_id: 192.168.16.0/24
+pointer_name: 183 
+zone: 192.168.16.in-addr.arpa  
+
+
+# Commentaar
+
+# Pointer_name = laatste octet van je ip
+# Zelfde principe zoals subnet berekening maar dan met het netwerk, bijvoorbeeld:  180.16.168.192
+
+#Organizational Units
+
+# Hoofdafdeling
+rootOU: "NPAfdelingen"
