@@ -1,4 +1,9 @@
-#Dit playbook maakt alle relevante onderdelen van DNS in windows server
+# Ansible Playbook
+# Name: DNS
+# Descriptie: Het configureren van de DNS Server
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
+
 - name: Maak een reverse lookup zone aan in dns van adds
   ansible.windows.win_powershell:
     script: |

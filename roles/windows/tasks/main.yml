@@ -1,0 +1,65 @@
+## run script basic/tasks/main.yml
+- name: "run updates"
+  include_vars:
+    file: roles/windows/updates/tasks/main.yml
+  no_log: false
+
+- name: "run SSH"
+  include_vars:
+    file: roles/windows/ssh/tasks/main.yml
+  no_log: true
+
+- name: "run ADDS"
+  include_vars:
+    file: roles/windows/adds/tasks/main.yml
+  no_log: true
+
+- name: "run users"
+  include_vars:
+    file: roles/windows/users/tasks/main.yml
+  no_log: true
+
+- name: "run AGDLP"
+  include_vars:
+    file: roles/windows/agdlp/tasks/main.yml
+  no_log: true
+
+- name: "run basic"
+  include_vars:
+    file: roles/windows/basic/tasks/main.yml
+  no_log: true
+
+- name: "run OU"
+  include_vars:
+    file: roles/windows/ou/tasks/main.yml
+  no_log: true
+
+- name: "run shares"
+  include_vars:
+    file: roles/windows/shares/tasks/main.yml
+  no_log: true
+
+- name: "run DHCP"
+  include_vars:
+    file: roles/windows/dhcp/tasks/main.yml
+  no_log: true
+
+- name: "run DNS"
+  include_vars:
+    file: roles/windows/dns/tasks/main.yml
+  no_log: true
+
+- name: "run GPO"
+  include_vars:
+    file: roles/windows/gpo/tasks/main.yml
+  no_log: true
+
+- name: "run Firewall"
+  include_vars:
+    file: roles/windows/firewall/tasks/main.yml
+  no_log: true
+
+- name: "run updates"
+  include_vars:
+    file: roles/windows/updates/tasks/main.yml
+  no_log: true

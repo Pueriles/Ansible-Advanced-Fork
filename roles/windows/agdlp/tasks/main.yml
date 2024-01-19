@@ -1,4 +1,8 @@
-# Dit playbook maakt de desbetreffende Groups aan.
+# Ansible Playbook
+# Name: AGDLP (account, global, domain local, permission)
+# Descriptie: Het aanmaken van de groepen en het toevoegen van de gebruikers aan de groepen 
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
 
 - name: "GlobalGroups voor de OU's"
   community.windows.win_domain_group:

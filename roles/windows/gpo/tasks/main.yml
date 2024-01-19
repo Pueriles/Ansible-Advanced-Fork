@@ -1,3 +1,9 @@
+# Ansible Playbook
+# Name: GPO
+# Descriptie: het instellen van GPO (Group Policy Object)
+# Auteur: Sebastiaan & Michel
+# Versie:
+
 - name: Kopieer the backgrounds folder
   win_copy:
     src: ~/Backgrounds

@@ -1,4 +1,9 @@
-# Dit playbook maakt de DHCP scope aan
+# Ansible Playbook
+# Name: DHCP
+# Descriptie: Het configuren van de DHCP server
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
+
 - name: Voeg de DHCP server toe aan de authorised DHCP servers in Windows 
   ansible.windows.win_powershell: 
     script: |

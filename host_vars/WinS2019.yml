@@ -3,7 +3,7 @@ ansible_host: 192.168.199.151
 # ADDS
 dns_domain_name: "noorderpoort.intern"
 domain_netbios_name: "NOORDERPOORT"
-check_netbios_name: "NOORDERPOORT\\Michel"
+check_netbios_name: "NOORDERPOORT\\Administrator"
 domain_admin_user: "Administrator@noorderpoort.intern"
 
 domain: "noorderpoort"
@@ -13,11 +13,11 @@ controller: "intern"
 
 FQDN: WS2019.noorderpoort.intern
 DHCP_SCOPE_NAME: "TestScope"
-start_range: 192.168.16.150
-end_range: 192.168.16.175
+start_range: 192.168.199.150
+end_range: 192.168.199.175
 subnetmask: 255.255.255.0
 dnsserver: "{{ansible_host}}"
-router: 192.168.16.1
+router: 192.168.199.1
 scopeid: "192.168.16.0/24"
 
 #FQDN = Fully Qualified Domain Name.
@@ -26,9 +26,9 @@ scopeid: "192.168.16.0/24"
 # DNS
 dynamic_update: secure
 replication: Forest
-network_id: 192.168.16.0/24
+network_id: 192.168.199.0/24
 pointer_name: 183 
-zone: 192.168.16.in-addr.arpa  
+zone: 192.168.199.in-addr.arpa  
 
 
 # Commentaar
@@ -40,3 +40,30 @@ zone: 192.168.16.in-addr.arpa
 
 # Hoofdafdeling
 rootOU: "NPAfdelingen"
+
+Gebruikers:
+  - key: "Michel"
+    value:
+      firstname: "Michel"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"
+  - key: "Sebastiaan"
+    value:
+      firstname: "Sebastiaan"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"
+  - key: "Maid"
+    value:
+      firstname: "Maid"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"
+  - key: "Andy"
+    value:
+      firstname: "Andy"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"
+  - key: "Joshua"
+    value:
+      firstname: "Joshua"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"

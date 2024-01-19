@@ -1,3 +1,9 @@
+# Ansible Playbook
+# Name: Backup
+# Descriptie: Het maken van een backup van de afdelingen en het comprimeren van de folder
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
+
 - name: "Backup de C:/Afdelingen"
   ansible.windows.win_powershell:
     script: |
@@ -22,7 +28,7 @@
 - name: "Kopieer Afdelingen naar de Ansible Controller"
   fetch:
     src: C:/Backup/backup.zip
-    dest: /home/michel/BACKUP
+    dest: /home/sebastiaan/BACKUP
   when: ansible_distribution_version >= "10.0"
 
 - name: "Verwijder de oude backup.zip"

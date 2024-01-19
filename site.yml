@@ -30,6 +30,7 @@
   become_method: runas
   become_user: Administrator
   roles:
+  - { role: windows/, tags: [ 'alles']}
   - { role: windows/basic, tags: [ 'basic']}
   - { role: windows/adds, tags: [ 'adds']}
   - { role: windows/agdlp, tags: [ 'agdlp']}

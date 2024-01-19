@@ -1,34 +1,29 @@
-- name: "Maak de group 'studenten' aan"
+- name: "Maak de group 'Gebruikers' aan"
   group:
-    name: studenten
+    name: Gebruikers
     state: present   
 
 - name: "Maak user groups aan"
   group:
     name: "{{ item }}"
     state: present
-  with_items:
-    - Michel
-    - Joshua
-    - Maid
-    - Andy
-    - Sebastiaan
+  with_items: "{{Gebruikers.key}}"
 
-- name: "Maak users aan in de groep 'studenten', ook met homefolder & wachtwoord"
+- name: "Maak users aan in de groep 'Gebruikers', ook met homefolder & wachtwoord"
   user:
     name: "{{ item }}"
-    groups: studenten,{{ item }}
+    groups: Gebruikers,{{ item }}
     append: true
     state: present
     shell: /bin/bash
     createhome: yes
     password: "{{ linux_user_password | password_hash('sha512') }}"
   with_items:
+    - Sebastiaan
     - Michel
-    - Joshua
     - Maid
     - Andy
-    - Sebastiaan
+    - Joshua
   changed_when: false
 
 - name: "Pas de permissies aan voor de homefolders"
@@ -40,8 +35,8 @@
     group: "{{item.group}}"
     mode: '0770'
   with_items:
-    - {user: Maid, group: Maid}
-    - {user: Joshua, group: Joshua}
-    - {user: Andy, group: Andy}
     - {user: Sebastiaan, group: Sebastiaan}
     - {user: Michel, group: Michel}
+    - {user: Maid, group: Maid}
+    - {user: Andy, group: Andy}
+    - {user: Joshua, group: Joshua}

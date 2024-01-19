@@ -1,4 +1,10 @@
-# Dit playbook doet de basis omtrent Active Directory Domain Services.
+# Ansible Playbook
+# Name:
+# Descriptie: Het Creëren van een Forest met een Domain Controller
+# Auteur: Sebastiaan & Michel
+# Versie: 3.0
+
+
 - name: Creeër een nieuwe domein in een nieuw forest op de host.
   ansible.windows.win_domain:
     dns_domain_name: "{{ dns_domain_name }}"
@@ -22,7 +28,7 @@
 - name: Promoveer de server als een Domain Controller
   ansible.windows.win_domain_controller:
     dns_domain_name: "{{ dns_domain_name }}"
-    domain_admin_user: Michel@"{{ dns_domain_name }}"
+    domain_admin_user: Administrator@"{{ dns_domain_name }}"
     domain_admin_password: "{{ windows_password }}"
     safe_mode_password: "{{ windows_password }}"
     state: domain_controller

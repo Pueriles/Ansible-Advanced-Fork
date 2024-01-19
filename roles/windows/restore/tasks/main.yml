@@ -1,3 +1,9 @@
+# Ansible Playbook
+# Name: Restore
+# Descriptie: Het terugzetten van de backup
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
+
 - name: "Kopieer de backup terug naar de server"
   win_copy:
     src: /home/sebastiaan/BACKUP/WinS2019/C:/Backup

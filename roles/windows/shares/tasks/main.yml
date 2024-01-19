@@ -1,3 +1,9 @@
+# Ansible Playbook
+# Name: Shares
+# Descriptie: Het aanmaken van de shares
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
+
 - name: "Maak de volgende folders aan als ze nog niet bestonden"
   ansible.windows.win_file:
     path: C:\{{ item.name }}

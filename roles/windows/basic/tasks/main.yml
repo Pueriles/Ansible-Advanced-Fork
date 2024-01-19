@@ -1,4 +1,9 @@
-# Dit playbook installeer wat simpele rollen die je nodig hebt voor ADDS
+# Ansible Playbook
+# Name: Rollen
+# Descriptie: Installeren van rollen op de Windows Server
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
+
 - name: Installeer de volgende rollen.
   ansible.windows.win_feature:
     name: "{{ item }}"

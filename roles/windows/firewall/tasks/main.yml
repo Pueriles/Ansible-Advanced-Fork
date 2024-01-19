@@ -1,3 +1,9 @@
+# Ansible Playbook
+# Name: Firewall
+# Descriptie: Het configureren van de Firewall 
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
+
 - name: sta inkomende DHCP toe
   community.windows.win_firewall_rule:
     name: "Sta inkomenende DHCP toe."

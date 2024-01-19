@@ -1,4 +1,9 @@
-# Dit playbook heeft 3 opties waaruit je kan kiezen. 
+# Ansible Playbook
+# Name: Updates
+# Descriptie: Het installeren van updates op de Windows Server
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
+# Notes: Dit playbook heeft 3 opties waaruit je kan kiezen. 
 
 - name: "Installeer alle security, critical & rollup updates"
   ansible.windows.win_updates:

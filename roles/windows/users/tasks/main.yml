@@ -1,3 +1,9 @@
+# Ansible Playbook
+# Name: Users
+# Descriptie: Het aanmaken van de gebruikers
+# Auteur: Sebastiaan & Michel
+# Versie: 1.0
+
 - name: "Include de user gegevens"
   ansible.builtin.include_vars:
     file: host_vars/domain_users.yml
