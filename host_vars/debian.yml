@@ -59,4 +59,3 @@ Gebruikers:
 # SSH
 ssh_port: "22"
 ssh_max_auth_tries: "6"
-git remote set-url origin https://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@github.com/Pueriles/Ansible-Advanced-Fork
