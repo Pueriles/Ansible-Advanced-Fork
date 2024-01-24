@@ -1,4 +1,4 @@
-ansible_host: 192.168.199.151
+ansible_host: 192.168.199.133
 
 # ADDS
 dns_domain_name: "noorderpoort.intern"
@@ -18,7 +18,7 @@ end_range: 192.168.199.175
 subnetmask: 255.255.255.0
 dnsserver: "{{ansible_host}}"
 router: 192.168.199.1
-scopeid: "192.168.16.0/24"
+scopeid: "192.168.199.0/24"
 
 #FQDN = Fully Qualified Domain Name.
 #Scopeid = geeft aan waar de informatie vandaan gehaald moet worden, soort van NetworkID
@@ -27,8 +27,8 @@ scopeid: "192.168.16.0/24"
 dynamic_update: secure
 replication: Forest
 network_id: 192.168.199.0/24
-pointer_name: 183 
-zone: 192.168.199.in-addr.arpa  
+pointer_name: 183
+zone: 199.168.192.in-addr.arpa
 
 
 # Commentaar
