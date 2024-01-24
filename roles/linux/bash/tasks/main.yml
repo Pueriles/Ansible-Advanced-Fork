@@ -2,7 +2,7 @@
 
 - name: Kopieer systeeminfo.sh naar de target
   copy:
-    src: roles/linux_bash/tasks/systeeminfo.sh
+    src: roles/linux/bash/tasks/systeeminfo.sh
     dest: /tmp/systeeminfo.sh
     mode: 0770
     owner: "{{ ansible_user }}"
