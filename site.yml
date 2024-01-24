@@ -10,6 +10,7 @@
   - { role: linux/ntp, tags: [  'linux_ntp']}
   - { role: linux/restore,  tags: [ 'linux_restore']}
   - { role: linux/users, tags:  [ 'linux_users']}
+  - { role: linux/ssh_config, tags: [ 'linux_ssh']}
 
 
 - hosts: routers 

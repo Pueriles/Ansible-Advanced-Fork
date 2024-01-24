@@ -58,5 +58,4 @@ Gebruikers:
 
 # SSH
 ssh_port: "22"
-ssh_banner: "/etc/banner"
 ssh_max_auth_tries: "6"

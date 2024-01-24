@@ -1,26 +1,14 @@
 - name: copy the banner to the target
   copy:
-    src: roles/linux/ssh_config/tasks/banner.j2
-    dest: /etc/banner
+    src: "templates/{{ item.src }}"
+    dest: "{{ item.dest }}"
     mode: 0770
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-
-- name: copy the SSH config to the target
-  copy:
-    src: roles/linux/ssh_config/tasks/sshd_config.j2
-    dest: /etc/ssh/sshd_config
-    mode: 0770
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-
-- name: copy the SSH config to the target
-  copy:
-    src: roles/linux/ssh_config/tasks/motd.j2
-    dest: /etc/motd
-    mode: 0770
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+  with_items:
+    - {src: banner.j2, dest: "/etc/banner"}
+    - {src: motd.j2, dest: "/etc/motd"}
+    - {src: ssh_config.j2, dest: "/etc/ssh/sshd_config"}
 
 - name: restart sshd
   service:
