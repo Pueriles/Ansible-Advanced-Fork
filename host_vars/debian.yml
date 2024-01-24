@@ -1,4 +1,4 @@
-ansible_host: 192.168.16.184
+ansible_host: 192.168.199.154
 
 __ntp_daemon: ntp
 ntp_tzdata_package: tzdata
@@ -32,3 +32,31 @@ ntp_restrict:
 
 ntp_cron_handler_enabled: false
 ntp_tinker_panic: true
+
+Gebruikers:
+  - key: "Michel"
+    value:
+      name: "Michel"
+      password: "{{ user_password }}"
+  - key: "Administrator"
+    value:
+      name: "Administrator"
+      password: "{{ user_password }}"
+  - key: "Maid"
+    value:
+      name: "Maid"
+      password: "{{ user_password }}"
+  - key: "Andy"
+    value:
+      name: "Andy"
+      password: "{{ user_password }}"
+  - key: "Joshua"
+    value:
+      name: "Joshua"
+      password: "{{ user_password }}"
+
+
+# SSH
+ssh_port: "22"
+ssh_banner: "/etc/banner"
+ssh_max_auth_tries: "6"
