@@ -1,9 +1,9 @@
-ansible_user: "sebastiaan"
+ansible_user: "stageadmin"
 ansible_password: "{{ password }}"
 ansible_become_password: "{{ password }}"
 
 create_user: user
-hostname: ubuntuserver
+hostname: ubuntu
 sys_packages: 
   - curl 
   - software-properties-common
