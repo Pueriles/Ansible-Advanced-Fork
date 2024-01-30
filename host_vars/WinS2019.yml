@@ -42,28 +42,28 @@ zone: 199.168.192.in-addr.arpa
 rootOU: "NPAfdelingen"
 
 Gebruikers:
-  - key: "Michel"
+  - key: "IT"
     value:
-      firstname: "Michel"
+      firstname: "IT"
       password: "{{ user_password }}"
       groups: "Gebruikers"
-  - key: "Sebastiaan"
+  - key: "Medewerker"
     value:
-      firstname: "Sebastiaan"
+      firstname: "Medewerker"
       password: "{{ user_password }}"
       groups: "Gebruikers"
-  - key: "Maid"
+  - key: "Directeur"
     value:
-      firstname: "Maid"
+      firstname: "Directeur"
       password: "{{ user_password }}"
       groups: "Gebruikers"
-  - key: "Andy"
+  - key: "Financien"
     value:
-      firstname: "Andy"
+      firstname: "Financien"
       password: "{{ user_password }}"
       groups: "Gebruikers"
-  - key: "Joshua"
+  - key: "Manager"
     value:
-      firstname: "Joshua"
+      firstname: "Manager"
       password: "{{ user_password }}"
       groups: "Gebruikers"
