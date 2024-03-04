@@ -1,46 +1,37 @@
-- name: Make interfaces access ports
-  ios_config:
-    lines:
-      - interface range {{ item.value.port }}
-      - switchport mode access
-  register: access_ports_config
-  loop: "{{ ports | dict2items }}"
-
 - name: Enable Port Security on all interfaces
   ios_config:
     lines:
       - interface range {{ item.value.port }}
-      - switchport port-security
-      - switchport port-security violation restrict
+      - no switchport port-security violation restrict
+      - no switchport port-security
   register: port_security_config
   loop: "{{ ports | dict2items }}"
 
 - name: Shutdown ports with no connectivity
   ios_config:
     lines:
-      - spanning-tree portfast bpduguard default
-      - errdisable recovery cause all
-      - errdisable recovery interval 30
-      - errdisable detect cause all
-      - errdisable detect cause link-flap
+      - no spanning-tree portfast bpduguard default
+      - no errdisable recovery cause all
+      - no errdisable recovery interval 30
+      - no errdisable detect cause all
+      - no errdisable detect cause link-flap
   register: shutdown_ports_config
 
 - name: Enable Port violation on all interfaces
   ios_config:
     lines:
       - interface range {{ item.value.port }}
-      - switchport port-security mac-address sticky
+      - no switchport port-security mac-address sticky
   register: sticky_mac_config
   loop: "{{ ports | dict2items }}"
 
 - name: Configure Blackhole VLAN
   ios_config:
     lines:
-      - vlan {{ blackhole_vlan_id }}
-      - name Blackhole
+      - no vlan {{ blackhole_vlan_id }}
       - interface range {{ item.value.port }}
-      - switchport access vlan {{ blackhole_vlan_id }}
-      - shutdown
+      - no switchport access vlan {{ blackhole_vlan_id }}
+      - no shutdown
   register: blackhole_vlan_config
   loop: "{{ ports | dict2items }}"
 

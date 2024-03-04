@@ -17,12 +17,14 @@
   become: true
   roles:
   - { role: networking/routers, tags: [ 'routers']}
+  - { role: deletion/routers, tags: [ 'delrouters']}
 
 - hosts: switches
   gather_facts: true
   become: true
   roles:
   - { role: networking/switches, tags: [ 'switches']}
+  - { role: deletion/switches, tags: [ 'delswitches']}
 
 - hosts: WindowsServer
   gather_facts: true

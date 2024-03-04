@@ -1,32 +1,32 @@
 ---
 users:
-  asu:
-    firstname: "Andy"
-    surname: "Su"
+  financien:
+    firstname: "Financien"
+    surname: "Noorderpoort"
     path: "OU=Administratie,OU=NPAfdelingen,DC={{ domain }},DC={{ controller}}"
     groups: "GG_Administratie"
-  mhrustic:
-    firstname: "Maid"
-    surname: "Hrustic"
+  directie:
+    firstname: "directie"
+    surname: "Noorderpoort"
     path: "OU=Directie,OU=NPAfdelingen,DC={{ domain }},DC={{ controller }}"
     groups: "GG_Directie"
-  jdegraaf:
-    firstname: "Joshua"
-    surname: "de Graaf"
+  manager:
+    firstname: "manager"
+    surname: "Noorderpoort"
     path: "OU=Directie,OU=NPAfdelingen,DC={{ domain }},DC={{ controller }}"
     groups: "GG_Directie"
-  sknol:
-    firstname: "Sebastiaan"
-    surname: "Knol"
+  sales:
+    firstname: "Sales"
+    surname: "Noorderpoort"
     path: "OU=Verkoop,OU=NPAfdelingen,DC={{ domain }},DC={{ controller }}"
     groups: "GG_Verkoop"
-  mriemersma:
-    firstname: "Michel"
-    surname: "Riemersma"
+  logistiek:
+    firstname: "Logistiek"
+    surname: "Noorderpoort"
     path: "OU=Productie,OU=NPAfdelingen,DC={{ domain }},DC={{ controller }}"
     groups: "GG_Productie"
-  rbaron:
-    firstname: "Rykle"
-    surname: "Baron"
+  ict:
+    firstname: "ICT"
+    surname: "Noorderpoort"
     path: "OU=Automatisering,OU=NPAfdelingen,DC={{ domain }},DC={{ controller }}"
     groups: "GG_Automatisering"

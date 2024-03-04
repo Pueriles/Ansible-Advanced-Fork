@@ -1,4 +1,4 @@
-ansible_user: "Administrator"
+ansible_user: "NoorderpoortAdmin"
 ansible_password: "{{ windows_password }}"
 ansible_become_password: "{{ windows_password }}"
 

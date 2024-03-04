@@ -7,6 +7,7 @@
 - name: "Include de user gegevens"
   ansible.builtin.include_vars:
     file: host_vars/domain_users.yml
+  no_log: true
 
 - name: Voeg de gebruikers toe aan het domein.
   microsoft.ad.user:
@@ -14,7 +15,7 @@
     name: "{{ item.key }}"
     firstname: "{{ item.value.firstname }}"
     surname: "{{ item.value.surname }}"
-    password: "{{ windows_password }}"
+    password: "{{ windows_user_password }}"
     password_expired: true
     display_name: "{{ item.value.firstname }} {{ item.value.surname }}"
     path: "{{ item.value.path }}"
@@ -22,3 +23,4 @@
       set:
       - "{{ item.value.groups }}"
   loop: "{{ lookup('dict', users) }}"
+  no_log: true

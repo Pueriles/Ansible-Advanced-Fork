@@ -1,0 +1,36 @@
+- name: run show version
+  ios_command:
+    commands: show version | include Version
+  register: output
+
+- name: print show version
+  debug:
+    var: output.stdout_lines
+
+- name: Configure the banner
+  ios_banner:
+    banner: login
+    text: "Authorized access only!"
+  register: banner_config
+
+- name: Configure OSPF
+  ios_config:
+    lines:
+      - router ospf 1
+      - network {{ item.network }} {{ item.wildcard }} area 0
+    parents: router ospf 1 
+  with_items:
+    - { network: "{{ OSPF_GI1 }}", wildcard: "{{ wildcard_GI1 }}" }
+    - { network: "{{ OSPF_GI2 }}", wildcard: "{{ wildcard_GI2 }}" }
+
+- name: Create a new user
+  cisco.ios.ios_user:
+    name: ansible
+    nopassword: true
+    sshkey: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    state: present
+
+- name: IOS >> Save Configuration to NVRAM
+  ios_config:
+    save_when: always
+  register: output

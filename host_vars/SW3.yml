@@ -1,0 +1,28 @@
+ansible_host: 192.168.199.137
+router_hostname: SW3
+
+ansible_network_os: ios
+ansible_user: cisco
+ansible_password: Welkom01!
+ansible_connection: network_cli
+ansible_become_password: Welkom01!
+
+ports:
+  range0:
+    port: "e0/0-3"
+  range1:
+    port: "e1/0-3"
+  range2:
+    port: "e2/0-3"
+  range3:
+    port: "e3/0-2" #e3/3 is management port
+
+vlans:
+  vlan10:
+    id: 10
+    name: "VLAN10"
+  vlan20:
+    id: 20
+    name: "VLAN20"
+
+blackhole_vlan_id: 989

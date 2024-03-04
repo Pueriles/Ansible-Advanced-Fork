@@ -1,0 +1,20 @@
+- name: Remove User Configuration
+  cisco.ios.ios_user:
+    name: ansible
+    state: absent
+
+- name: Remove OSPF Configuration
+  ios_config:
+    lines:
+      - no router ospf 1
+  register: ospf_config_removal
+
+- name: Remove Banner Configuration
+  ios_banner:
+    banner: login
+    state: absent
+
+- name: IOS >> Save Configuration to NVRAM
+  ios_config:
+    save_when: always
+  register: save_config
