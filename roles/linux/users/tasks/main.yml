@@ -1,42 +1,32 @@
-- name: "Maak de group 'Gebruikers' aan"
+- name: "Maak de groep 'Gebruikers' aan"
   group:
     name: Gebruikers
     state: present   
 
-- name: "Maak user groups aan"
+- name: "Maak user groeps aan"
   group:
-    name: "{{ item }}"
+    name: "{{ item.key }}"
     state: present
-  with_items: "{{Gebruikers.key}}"
+  with_items: "{{ Gebruikers }}"
 
 - name: "Maak users aan in de groep 'Gebruikers', ook met homefolder & wachtwoord"
   user:
-    name: "{{ item }}"
-    groups: Gebruikers,{{ item }}
+    name: "{{ item.key }}"
+    groups: Gebruikers,{{ item.key }}
     append: true
     state: present
     shell: /bin/bash
     createhome: yes
-    password: "{{ linux_user_password | password_hash('sha512') }}"
-  with_items:
-    - Sebastiaan
-    - Michel
-    - Maid
-    - Andy
-    - Joshua
+    password: "{{ item.value.password | password_hash('sha512') }}"
+  with_items: "{{ Gebruikers }}"
   changed_when: false
 
-- name: "Pas de permissies aan voor de homefolders"
+- name: "Permissies aanpassen voor de homefolders"
   ansible.builtin.file:
-    path: /home/{{item.user}}
+    path: /home/{{item.key}}
     state: directory
     recurse: yes
-    owner: "{{item.user}}"
-    group: "{{item.group}}"
+    owner: "{{item.key}}"
+    group: "{{item.key}}"
     mode: '0770'
-  with_items:
-    - {user: Sebastiaan, group: Sebastiaan}
-    - {user: Michel, group: Michel}
-    - {user: Maid, group: Maid}
-    - {user: Andy, group: Andy}
-    - {user: Joshua, group: Joshua}
+  with_items: "{{ Gebruikers }}"

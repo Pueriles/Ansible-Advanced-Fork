@@ -1,4 +1,4 @@
-ansible_host: 192.168.192.6
+ansible_host: 192.168.199.151
 
 # ADDS
 dns_domain_name: "noorderpoort.intern"
@@ -17,8 +17,8 @@ start_range: 192.168.192.150
 end_range: 192.168.192.175
 subnetmask: 255.255.255.0
 dnsserver: "{{ansible_host}}"
-router: 192.168.192.1
-scopeid: "192.168.192.0/24"
+router: 192.168.199.1
+scopeid: "192.168.16.0/24"
 
 #FQDN = Fully Qualified Domain Name.
 #Scopeid = geeft aan waar de informatie vandaan gehaald moet worden, soort van NetworkID
@@ -26,9 +26,9 @@ scopeid: "192.168.192.0/24"
 # DNS
 dynamic_update: secure
 replication: Forest
-network_id: 192.168.192.0/24
+network_id: 192.168.199.0/24
 pointer_name: 183 
-zone: 192.168.192.in-addr.arpa  
+zone: 192.168.199.in-addr.arpa  
 
 
 # Commentaar
@@ -40,3 +40,30 @@ zone: 192.168.192.in-addr.arpa
 
 # Hoofdafdeling
 rootOU: "NPAfdelingen"
+
+Gebruikers:
+  - key: "Michel"
+    value:
+      firstname: "Michel"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"
+  - key: "Sebastiaan"
+    value:
+      firstname: "Sebastiaan"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"
+  - key: "Maid"
+    value:
+      firstname: "Maid"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"
+  - key: "Andy"
+    value:
+      firstname: "Andy"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"
+  - key: "Joshua"
+    value:
+      firstname: "Joshua"
+      password: "{{ user_password }}"
+      groups: "Gebruikers"
