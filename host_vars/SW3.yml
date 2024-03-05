@@ -20,3 +20,4 @@ vlans:
     name: "VLAN20"
 
 blackhole_vlan_id: 989
+router_port: "e0/0"
