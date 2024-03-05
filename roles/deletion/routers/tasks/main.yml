@@ -3,6 +3,15 @@
     name: ansible
     state: absent
 
+- name: Remove IPv4 adressen
+  cisco.ios.ios_l3_interfaces:
+    config:
+      - name: GigabitEthernet1/0
+        ipv4: []
+      - name: GigabitEthernet2/0
+        ipv4: []
+    state: merged
+
 - name: Remove OSPF Configuration
   ios_config:
     lines:

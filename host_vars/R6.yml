@@ -1,16 +1,14 @@
 ansible_host: 192.168.199.135
 router_hostname: R6
 
-ansible_network_os: ios
-ansible_user: cisco
-ansible_password: Welkom01!
-ansible_connection: network_cli
-ansible_become_password: Welkom01!
-
 #GI1
 ip_GI1: 10.12.10.1
+subnet_GI1: 24
+OSPF_GI1: 10.12.10.0
 wildcard_GI1: 0.0.0.255
 
 #GI2
 ip_GI2: 10.10.12.1
+subnet_GI2: 24
+OSPF_GI2: 10.10.12.0
 wildcard_GI2: 0.0.0.255
