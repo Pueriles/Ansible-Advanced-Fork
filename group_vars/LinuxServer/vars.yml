@@ -1,4 +1,4 @@
-ansible_user: "stageadmin"
+ansible_user: "Username"
 ansible_password: "{{ password }}"
 ansible_become_password: "{{ password }}"
 
