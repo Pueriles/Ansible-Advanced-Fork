@@ -1,4 +1,4 @@
-- name: Enable Port Security on all interfaces
+- name: Disable Port Security on all interfaces
   ios_config:
     lines:
       - interface range {{ item.value.port }}
@@ -17,7 +17,7 @@
       - no errdisable detect cause link-flap
   register: shutdown_ports_config
 
-- name: Enable Port violation on all interfaces
+- name: Disable Port violation on all interfaces
   ios_config:
     lines:
       - interface range {{ item.value.port }}
@@ -35,7 +35,7 @@
   register: blackhole_vlan_config
   loop: "{{ ports | dict2items }}"
 
-- name: IOS >> Save Configuration to NVRAM
+- name: Save configuration
   ios_config:
     save_when: always
   register: output

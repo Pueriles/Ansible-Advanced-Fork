@@ -42,9 +42,16 @@
       - switchport access vlan {{ blackhole_vlan_id }}
       - shutdown
   register: blackhole_vlan_config
-  loop: "{{ ports | dict2items }}"
 
-- name: IOS >> Save Configuration to NVRAM
+- name: Configure dhcp snooping
+  ios_config:
+    lines:
+      - ip dhcp snooping
+      - int {{ router_port }}
+      - ip dhcp snooping trust
+  register: dhcp_snooping_config
+
+- name: Save configaration
   ios_config:
     save_when: always
   register: output

@@ -13,6 +13,17 @@
     text: "Authorized access only!"
   register: banner_config
 
+- name: Add IPv4 adressen
+  cisco.ios.ios_l3_interfaces:
+    config:
+      - name: GigabitEthernet1/0
+        ipv4:
+          - address: "{{ ip_GI1 }}/{{ subnet_GI1 }}"
+      - name: GigabitEthernet2/0
+        ipv4:
+          - address: "{{ ip_GI2 }}/{{ subnet_GI2 }}"
+    state: merged
+
 - name: Configure OSPF
   ios_config:
     lines:
@@ -29,8 +40,9 @@
     nopassword: true
     sshkey: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
     state: present
+  no_log: true
 
-- name: IOS >> Save Configuration to NVRAM
+- name: Save configaration
   ios_config:
     save_when: always
   register: output
