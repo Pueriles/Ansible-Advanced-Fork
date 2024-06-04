@@ -1,4 +1,4 @@
-ansible_host: 192.168.199.135
+ansible_host: 192.168.192.135
 router_hostname: R6
 
 ansible_network_os: ios

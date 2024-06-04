@@ -1,0 +1,20 @@
+# Dit werkt alleen op Linux
+
+- name: Kopieer backup.sh naar de target
+  copy:
+    src: roles/linux/backup/tasks/backup.sh
+    dest: /tmp/backup.sh
+    mode: 0770
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Voer backup.sh uit op de target
+  shell:
+    chdir: /tmp
+    cmd: ./backup.sh
+  register: fetch_result
+
+
+- name: Geef de output weer op de ansible controller
+  debug: 
+    var: fetch_result

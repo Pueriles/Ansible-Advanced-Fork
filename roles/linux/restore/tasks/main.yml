@@ -1,0 +1,20 @@
+# Dit werkt alleen op Linux
+
+- name: Kopieer restore.sh naar de target
+  copy:
+    src: roles/linux/restore/tasks/restore.sh
+    dest: /tmp/restore.sh
+    mode: 0770
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Voer restore.sh uit op de target
+  shell:
+    chdir: /tmp
+    cmd: ./restore.sh
+  register: fetch_result
+
+
+- name: Geef de output weer op de ansible controller
+  debug: 
+    var: fetch_result

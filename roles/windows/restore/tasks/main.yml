@@ -31,4 +31,4 @@
     state: absent
 
 - name: "Run de shares opnieuw"
-  ansible.builtin.import_tasks: roles/windows/shares/tasks/main.yml
+  import_tasks: roles/windows/shares/tasks/main.yml

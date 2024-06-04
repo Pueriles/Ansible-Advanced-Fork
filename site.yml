@@ -2,7 +2,7 @@
   gather_facts: true
   become: true
   roles:
-#  - { role: linux/backup, tags: [ 'linux_backup']}
+  - { role: linux/backup, tags: [ 'linux_backup']}
   - { role: linux/bash, tags: [ 'linux_bash']}
   - { role: containers/docker, tags: [ 'docker']}
   - { role: linux/basic, tags: [ 'basic']}
@@ -57,5 +57,5 @@
   roles:
   - { role: werkstations/domain, tags: [ 'domain']}
   - { role: werkstations/apps, tags: [ 'apps']}
-  - { role: werkstations/ai_nvidia, tags: [ 'nvidia']}
-  - { role: werkstations/ai_amd, tags: [ 'amd']}
+  # - { role: werkstations/ai_nvidia, tags: [ 'nvidia']}
+  # - { role: werkstations/ai_amd, tags: [ 'amd']}
